@@ -2,7 +2,7 @@ import bcrypt from "bcrypt";
 import { createRefreshToken} from "~~/server/db/refreshToken";
 import { getUserByUsername } from "~~/server/db/user";
 import { userTransformer } from "~~/server/transformers/user";
-import { generateTokens, sendRefreshToken } from "~~/server/utils/jwt";
+import { generateTokens, sendAccessToken, sendRefreshToken } from "~~/server/utils/jwt";
 
 export default defineEventHandler(async (event) => {
     const body = await useBody(event);
@@ -47,6 +47,7 @@ export default defineEventHandler(async (event) => {
 
     //Add cookie http only
     sendRefreshToken(event, refreshToken);
+    sendAccessToken(event, accessToken);
 
     return {
         accessToken: accessToken,

@@ -26,6 +26,17 @@ export const decodeRefreshToken = (token) => {
     }
 }
 
+export const decodeAccessToken = (token) => {
+    const config = useRuntimeConfig();
+
+    try {
+        return jwt.verify(token, config.jwtAccessSecret);
+    } catch (err) {
+        return err;
+    }
+}
+
+
 export const generateTokens = (user) => {
     const accessToken = generateAccessToken(user);
     const refreshToken = generateRefreshToken(user);
@@ -38,6 +49,15 @@ export const generateTokens = (user) => {
 
 export const sendRefreshToken = (event, token) => {
     setCookie(event.res, "refreshToken", token, {
+        httpOnly: true,
+        sameSite: true,
+        // secure: true
+    })
+}
+
+export const sendAccessToken = (event, token) => {
+    console.log("accessToken add to cookies");
+    setCookie(event.res, "accessToken", token, {
         httpOnly: true,
         sameSite: true,
         // secure: true

@@ -7,7 +7,7 @@
         <UIInput v-model="data.password" label="Password" type="password" placeholder="*******"></UIInput>
 
         <div>
-            <button @click="handleLogin()">Login</button>
+            <button class="bg-blue-500 rounded-full font-semibold w-24 h-8" @click="handleLogin()">Login</button>
         </div>
        </div>
     </div>

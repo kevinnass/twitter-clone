@@ -1,6 +1,6 @@
 import { getRefreshTokenByToken } from '~~/server/db/refreshToken'
 import { getUserById } from '~~/server/db/user';
-import { decodeRefreshToken } from '~~/server/utils/jwt';
+import { decodeRefreshToken, generateTokens, sendAccessToken } from '~~/server/utils/jwt';
 
 export default defineEventHandler(async (event) => {
     const cookies = useCookies(event)
@@ -26,13 +26,18 @@ export default defineEventHandler(async (event) => {
     const token = decodeRefreshToken(refreshToken);
 
     try {
-        const user = await getUserById(token.userId)
-        return {
-            user: user
-        }
-    } catch (err) {}
+        const user = await getUserById(token.userId);
+        const { accessToken } = generateTokens(user);
+        sendAccessToken(event, accessToken);
 
-    return {
-        refresh: token,
+        return {
+            accessToken: accessToken,
+        }
+
+    } catch (err) {
+        return sendError(event, createError({
+            statusCode: 500,
+            statusMessage: 'Unable to refresh the token'
+        }))
     }
 });

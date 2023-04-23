@@ -1,12 +1,15 @@
 <template>
   <div>
     <MainSection title="Home" :loading="loading">
-      Home page
+    {{ user }}
     </MainSection>
     </div>
 </template>
 
-<script>
+<script setup>
+const { useAuthUser } = useAuth();
+const user = useAuthUser();
+
 const loading = ref(false);
 </script>
 
