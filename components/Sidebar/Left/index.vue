@@ -83,16 +83,26 @@
           More
         </template>
       </SidebarLeftTab>
+
+      <div class="hidden xl:block">
+        <UIButton liquid size="lg">
+          <span>
+            Tweet
+          </span>
+        </UIButton>
+      </div>
+      
+      <div class="block xl:hidden">
+        <UIButton>
+          <div class="w-6 h-6 font-bold">
+            <IconPencil class="" />
+          </div>
+        </UIButton>
+      </div>
+
     </div>
 
-    <!-- <SidebarLeftTab active>
-      <template v-slot:icon>
-        <LogoHome></LogoHome>
-      </template>
-      <template v-slot:name>
-        Home
-      </template>
-    </SidebarLeftTab> -->
+    
 
   </div>
 </template>

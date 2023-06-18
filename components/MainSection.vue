@@ -1,7 +1,7 @@
 <template>
   <div class="border-" :class="twitterBorderColor">
 
-		<div class="sticky border-b top-0 px-4 bg-white/80 backdrop-blur-md py-3 dark:border-dim-900/80">
+		<div class="sticky w- border-b top-0 px-4 bg-white/80 backdrop-blur-md py-3 dark:border-dim-900/80">
 			<h2 class="text-xl font-bold text-gray-800 dark:text-gray-100">
 				{{ props.title }}
 			</h2>

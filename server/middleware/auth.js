@@ -7,7 +7,12 @@ export default defineEventHandler(async (event) => {
     const cookies = useCookies(event);
     const accessToken = cookies.accessToken;
   
-    const endpoints = [ '/api/auth/user' ];
+    const endpoints = [ 
+        '/api/auth/user',
+        '/api/user/tweets',
+        '/api/tweets',
+        '/api/tweets/:id',
+    ];
 
     const isHandledByThisMiddleware = endpoints.some(endpoint => {
         const pattern = new UrlPattern(endpoint);
@@ -19,9 +24,8 @@ export default defineEventHandler(async (event) => {
         return 
     }
 
-    const token = event.req.headers['authorization'];
+    // const token = event.req.headers['authorization'];
 
-    console.log('aToken =' + accessToken);
     const decoded = decodeAccessToken(accessToken);
 
     if (!decoded) {
@@ -37,7 +41,7 @@ export default defineEventHandler(async (event) => {
         const user = await getUserById(userId);
 
         event.context.auth = { user };
-        event.context.token = { token };
+
     } catch(err) {
         return
     }

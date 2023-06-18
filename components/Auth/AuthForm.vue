@@ -1,6 +1,6 @@
 <template>
     <div>
-       <div class="pt-5 space-y-6">
+       <div class="pt-5 ml-7 w space-y-6">
 
         <UIInput v-model="data.username" label="Username" type="text" placeholder="@username"></UIInput>
 
