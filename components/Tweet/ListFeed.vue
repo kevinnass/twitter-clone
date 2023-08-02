@@ -1,14 +1,14 @@
 <template>
     <div>
-        
+   
         <div v-if="isEmptyArray">
             <p class="text-center text-gray-600 mt-24">
                 No tweets 😭.
             </p>
         </div>
 
-        <div v-for="tweet in props.tweets" :key="tweet.id" class="pb-4 border-b hover:bg-gray-50 dark:hover:bg-dim-300 cursor-pointer" :class="[twitterBorderColor, defaultTransition]">
-            <TweetItem :tweet="tweet"/>
+        <div v-else v-for="tweet in props.tweets" :key="tweet.id" @click.native="redirect(tweet)" class="pb-4 border-b hover:bg-gray-50 dark:hover:bg-dim-300 cursor-pointer" :class="[twitterBorderColor, defaultTransition]">
+            <TweetItem compact :tweet="tweet"/>
         </div>
 
     </div>
@@ -26,4 +26,7 @@ const props = defineProps({
 
 const isEmptyArray = computed(() => props.tweets.length === 0);
 
+function redirect (tweet) {
+    navigateTo(`status/${tweet.id}`);
+}
 </script>

@@ -3,6 +3,7 @@ export default defineNuxtConfig({
     modules: 
     [ 
         '@nuxtjs/tailwindcss',
+        // '@headlessui/vue/dist/styles.css',
     ],
     
     runtimeConfig: {

@@ -113,12 +113,12 @@
 </template>
 
 <script setup>
-const { twitterBorderColor } = useTailwindConfig()
+const { twitterBorderColor } = useTailwindConfig();
 
-const imageInput = ref()
-const selectedFile = ref(null)
-const inputImageUrl = ref(null)
-const text = ref('')
+const imageInput = ref();
+const selectedFile = ref(null);
+const inputImageUrl = ref(null);
+const text = ref('');
 
 const emits = defineEmits(['onSubmit'])
 
@@ -138,7 +138,7 @@ const props = defineProps({
 function handleFormSubmit() {
     emits('onSubmit', {
         text: text.value,
-        replyTo: '64884f0df1f01036aa372473',
+        // replyTo: '64884f0df1f01036aa372473',
         mediaFiles: [selectedFile.value]
     })
 }

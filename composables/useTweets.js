@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export default () => {
-    const postTweet = (formData) => {
+    const postTweet = async (formData) => {
         const form = new FormData();
 
         form.append('text', formData.text);
@@ -10,13 +10,21 @@ export default () => {
         formData.mediaFiles.forEach((mediaFile, index) => {
             form.append('media_file_' + index, mediaFile)
         });
+   
+        //     return useFetchApi('/api/user/tweets', {
+    //         method: 'POST',
+    //         body: form
+    //     })
+    // }
 
-        axios.post('/api/user/tweets', form)
+        await axios.post('/api/user/tweets', form)
             .then((response) => {
                 console.log(response.data);
             }).catch((error) => {
                 console.log(error);
             });
+        
+        return form;
     };
 
     const getHomeTweets = async () => {
@@ -36,7 +44,7 @@ export default () => {
         await axios.get('/api/tweets/' + tweetId)
         .then((response) => {
             console.log(response.data);
-            tweet = response.data;
+            tweet = response.data.tweet;
         }).catch((error) => {
             console.log(error);
         });

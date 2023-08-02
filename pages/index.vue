@@ -1,19 +1,17 @@
 <template>
   <div>
     <MainSection title="Home" :loading="loading">
-
       <Head>
         <Title>Home / Twitter</Title>
       </Head>
 
       <div class="border-b" :class="twitterBorderColor">
-        <TweetForm :user="user" />
+        <TweetForm :user="user" @on-success="handleFormSuccess" />
       </div>
 
       <TweetListFeed :tweets="homeTweets" />
-
     </MainSection>
-    </div>
+  </div>
 </template>
 
 <script setup>
@@ -37,9 +35,15 @@ onBeforeMount(async () => {
     console.log(err);
   } finally {
     loading.value = false;
-  };
-})
+  }
+});
 
+function handleFormSuccess(tweet) {
+  console.log(tweet);
+  navigateTo({
+    path: `/status/${tweet.id}`,
+  });
+}
 </script>
 
 <style></style>
