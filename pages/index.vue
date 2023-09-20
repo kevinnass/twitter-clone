@@ -9,7 +9,7 @@
         <TweetForm :user="user" @on-success="handleFormSuccess" />
       </div>
 
-      <TweetListFeed :tweets="homeTweets" />
+      <TweetListFeed @reply-tweet="handleReplyTweet" :tweets="homeTweets" />
     </MainSection>
   </div>
 </template>
@@ -26,6 +26,12 @@ const { getHomeTweets } = useTweets();
 
 const homeTweets = ref([]);
 
+const emits = defineEmits(["replyTweet"]);
+
+function handleReplyTweet(tweets) {
+  emits("replyTweet", tweets);
+}
+
 onBeforeMount(async () => {
   loading.value = true;
   try {
@@ -38,8 +44,17 @@ onBeforeMount(async () => {
   }
 });
 
-function handleFormSuccess(tweet) {
+async function handleFormSuccess(tweet) {
   console.log(tweet);
+  loading.value = true;
+  try {
+    const tweets = await getHomeTweets();
+    homeTweets.value = tweets;
+  } catch (err) {
+    console.log(err);
+  } finally {
+    loading.value = false;
+  }
   navigateTo({
     path: `/status/${tweet.id}`,
   });

@@ -1,6 +1,26 @@
 import axios from 'axios';
 
 export default () => {
+    const useReplyTweet = () => useState('reply_tweet', () => null);
+
+    const usePostTweetModal = (modal) => {
+        const val = localStorage.getItem('postTweetModal');
+        if (val === 'true') modal.value = true;
+        else modal.value = false;
+    };
+
+    const closePostTweetModal = () => {
+        localStorage.setItem('postTweetModal', 'false');
+        localStorage.removeItem('replyTweet');
+    }
+
+    const setReplyTo = (tweet) => {
+        const getTweet = localStorage.getItem('replyTweet');
+        tweet = JSON.parse(getTweet);
+        console.log(tweet);
+        return tweet;
+    }
+
     const postTweet = async (formData) => {
         const form = new FormData();
 
@@ -10,12 +30,6 @@ export default () => {
         formData.mediaFiles.forEach((mediaFile, index) => {
             form.append('media_file_' + index, mediaFile)
         });
-   
-        //     return useFetchApi('/api/user/tweets', {
-    //         method: 'POST',
-    //         body: form
-    //     })
-    // }
 
         await axios.post('/api/user/tweets', form)
             .then((response) => {
@@ -23,13 +37,12 @@ export default () => {
             }).catch((error) => {
                 console.log(error);
             });
-        
         return form;
     };
 
-    const getHomeTweets = async () => {
-        var tweets = 0;
-        await axios.get('/api/tweets')
+    const getHomeTweets = async (params = {}) => {
+        var tweets;
+        await axios.get('/api/tweets', {params})
         .then((response) => {
             console.log(response.data);
             tweets = response.data.tweets;
@@ -55,5 +68,8 @@ export default () => {
         postTweet,
         getHomeTweets,
         getTweetById,
+        closePostTweetModal,
+        usePostTweetModal,
+        setReplyTo,
     }
 };

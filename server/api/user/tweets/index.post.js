@@ -29,9 +29,18 @@ export default defineEventHandler(async (event) => {
     };
 
     const replyTo = fields.replyTo;
+    // var getReplyTweet;
+    // var replyTweet;
+    // if (localStorage.getItem('replyTweet') !== null) {
+    //     getReplyTweet = localStorage.getItem('replyTweet');
+    //     replyTweet = JSON.parse(getReplyTweet);
+    //     console.log(replyTweet);
+    // }
+    // const replyTo = replyTweet?.id;
+    // console.log(replyTweet);
 
     if (replyTo && replyTo !== 'null' && replyTo !== 'undefined') {
-        tweetData.replyToId = replyTo;
+        tweetData.replyToId = replyTweet.id;
     }
 
     const tweet = await createTweet(tweetData);

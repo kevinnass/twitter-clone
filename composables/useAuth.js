@@ -35,6 +35,16 @@ export default () => {
         });
     }
 
+    const logout = () => {
+        axios.post('api/auth/logout')
+        .then((response) => {
+            setToken(null);
+            setUser(null);
+        }).catch((error) => {
+            console.log(error);
+        });
+    }
+
     const refreshToken = () => {
         axios.get('api/auth/refresh')
         .then((response) => {
@@ -92,6 +102,7 @@ export default () => {
 
     return {
         login,
+        logout,
         useAuthUser,
         initAuth,
         useAuthLoading,
