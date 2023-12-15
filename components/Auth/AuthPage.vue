@@ -2,8 +2,8 @@
   <div class="flex flex-row">
     <div class="flex items-center justify-center flex-col">
       <h1 class="flex flex-col items-center text-2xl font-bold">
-        Authentification, log in with the following login details: username = ken,
-        password = 1234 <IconTwitter class="h-28 w-28" />
+        Authentification, login details: username = ken, password = 1234
+        <IconTwitter class="h-28 w-28" />
       </h1>
       <div class="flex">
         <div class="flex items-center">
